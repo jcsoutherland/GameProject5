@@ -13,11 +13,9 @@ namespace GameProject5
 {
     public class Camera : ICamera
     {
-        public float goalXAngle { get; set; }
-        public float goalYAngle { get; set; }
         public string angleDirection { get; set; } = "";
-        float xAngle;
-        float yAngle;
+        float xAngle = 0f;
+        float yAngle = 0f;
         Vector3 position;
         float speed;
         Game game;
@@ -84,31 +82,22 @@ namespace GameProject5
             if (angleDirection == "Y")
             {
                 yAngle -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                this.view =
-                    Matrix.CreateRotationX(yAngle) *
-                    Matrix.CreateLookAt(position, Vector3.Zero, Vector3.Up);
             }
             else if (angleDirection == "X")
             {
                 xAngle += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                this.view =
-                    Matrix.CreateRotationY(xAngle) *
-                    Matrix.CreateLookAt(position, Vector3.Zero, Vector3.Up);
             }
             else if (angleDirection == "-X")
             {
                 xAngle -= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                this.view =
-                    Matrix.CreateRotationY(xAngle) *
-                    Matrix.CreateLookAt(position, Vector3.Zero, Vector3.Up);
             }
             else if (angleDirection == "-Y")
             {
                 yAngle += speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                this.view =
-                    Matrix.CreateRotationX(yAngle) *
-                    Matrix.CreateLookAt(position, Vector3.Zero, Vector3.Up);
             }
+            this.view =
+                Matrix.CreateRotationX(yAngle) * Matrix.CreateRotationY(xAngle) *
+                Matrix.CreateLookAt(position, Vector3.Zero, Vector3.Up);
         }
     }
 }
